@@ -75,6 +75,7 @@
     let visible = true;
     let revealTick = 0;
     let revealed = false;
+    let frames = 0;
 
     function srcSize(src) {
       if (src instanceof HTMLVideoElement) {
@@ -282,7 +283,15 @@
         lastSrc = src;
         pixels = null;
       }
+      if (cfg.pan) {
+        const f = cfg.pan();
+        if (Math.abs(f - cfg.focusX) > 0.0002) {
+          cfg.focusX = f;
+          crop = null;
+        }
+      }
       fit(size);
+      frames++;
       const isVideo = src instanceof HTMLVideoElement;
       if (!pixels || (isVideo && src.currentTime !== lastSampleTime)) {
         sample(src);
@@ -366,6 +375,9 @@
         pixels = null;
         this.scramble(0.35, 10);
       },
+      debug() {
+        return { visible, frames, w, h, focusX: cfg.focusX };
+      },
       // Let stuck cells (from the gate) fly home.
       release() {
         cfg.stick = false;
@@ -443,6 +455,7 @@
       drag: finePointer ? 0.85 : 0.78,
       ring: finePointer,
       focusX: portrait() ? PAN_FROM : 0.5,
+      pan: () => panFocus(),
       // Phones only play with the loop on the entry screen; after that a finger just scrolls.
       interactive: finePointer || showGate,
       stick: showGate,
@@ -464,31 +477,44 @@
         else heroVideo.pause();
       },
     });
-    // Driven by the video's own clock so the pan restarts with the loop.
-    // currentTime only ticks per video frame, so glide between ticks.
-    let lastT = -1;
-    let stamp = 0;
-    let lastFocus = -1;
-    (function pan() {
-      requestAnimationFrame(pan);
-      let f = 0.5;
-      if (portrait()) {
-        const now = performance.now();
-        const t = heroVideo.currentTime;
-        if (t !== lastT) {
-          lastT = t;
-          stamp = now;
-        }
-        const dur = heroVideo.duration || 11;
-        const live = heroVideo.paused ? t : t + (now - stamp) / 1000;
-        const p = (live % dur) / dur;
-        f = PAN_FROM + (PAN_TO - PAN_FROM) * (0.5 - 0.5 * Math.cos(2 * Math.PI * p));
-      }
-      if (Math.abs(f - lastFocus) > 0.0002) {
-        lastFocus = f;
-        heroField.set("focusX", f);
-      }
-    })();
+    // The pan runs on its own clock (Safari's video clock can't be trusted
+    // to tick), and lines up with the video whenever the loop restarts.
+    const loopLength = () => (isFinite(heroVideo.duration) && heroVideo.duration > 0 ? heroVideo.duration : 11.08);
+    let loopStart = performance.now();
+    let prevT = 0;
+    const syncPan = () => {
+      loopStart = performance.now() - heroVideo.currentTime * 1000;
+      prevT = heroVideo.currentTime;
+    };
+    ["play", "seeked", "loadeddata"].forEach((ev) => heroVideo.addEventListener(ev, syncPan));
+    function panFocus() {
+      if (!portrait()) return 0.5;
+      const t = heroVideo.currentTime;
+      if (t + 0.5 < prevT) syncPan(); // the loop wrapped
+      prevT = t;
+      const dur = loopLength();
+      const p = (((performance.now() - loopStart) / 1000) % dur) / dur;
+      return PAN_FROM + (PAN_TO - PAN_FROM) * (0.5 - 0.5 * Math.cos(2 * Math.PI * p));
+    }
+
+    // ?debug=1 shows what the hero is doing, for checking on a real phone.
+    if (params.get("debug") === "1") {
+      const box = document.createElement("pre");
+      box.style.cssText = "position:fixed;left:8px;bottom:8px;z-index:9999;margin:0;padding:8px;background:rgba(0,0,0,.8);color:#7f7;font:11px/1.4 monospace;pointer-events:none;white-space:pre";
+      document.body.append(box);
+      let lastFrames = 0;
+      setInterval(() => {
+        const d = heroField.debug();
+        box.textContent = [
+          `video t ${heroVideo.currentTime.toFixed(2)} / ${heroVideo.duration}`,
+          `paused ${heroVideo.paused} ready ${heroVideo.readyState}`,
+          `focus ${d.focusX.toFixed(3)} portrait ${portrait()}`,
+          `draws/s ${(d.frames - lastFrames) * 2} visible ${d.visible}`,
+          `canvas ${d.w}x${d.h} screen ${innerWidth}x${innerHeight}`,
+        ].join("\n");
+        lastFrames = d.frames;
+      }, 500);
+    }
 
     if (showGate) {
       hero.querySelector(".hero__hint").textContent = "Wipe the screen to find Enter";
