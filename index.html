@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>David Asher — Composer</title>
+    <meta name="description" content="David Asher is a composer, producer, and multi-instrumentalist writing cinematic music for film, TV, and sync." />
+    <meta name="theme-color" content="#0b0a0c" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="David Asher — Composer" />
+    <meta property="og:title" content="David Asher — Composer" />
+    <meta property="og:description" content="Cinematic music for film, TV, and sync." />
+    <meta property="og:image" content="assets/img/hero-poster.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="assets/img/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Background: the wallpaper for whichever section is on screen, dissolving under the pointer -->
+    <div class="bg-stage" aria-hidden="true">
+      <canvas id="bg-canvas"></canvas>
+      <div class="bg-stage__veil"></div>
+    </div>
+
+    <header class="site-header">
+      <nav class="nav wrap" aria-label="Primary">
+        <a class="brand" href="#home">David Asher</a>
+        <ul class="nav__links">
+          <li><a href="#bio">Bio</a></li>
+          <li><a href="#music">Music</a></li>
+          <li><a href="#links">Links</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-drawer">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </header>
+
+    <div class="nav-drawer" id="nav-drawer">
+      <a href="#bio">Bio</a>
+      <a href="#music">Music</a>
+      <a href="#links">Links</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <main>
+      <!-- HERO: the looping score, drawn as pixels that scatter under the pointer -->
+      <section class="hero" id="home" aria-label="Intro">
+        <div class="hero__screen">
+          <video
+            id="hero-video"
+            class="hero__video"
+            data-src="assets/video/hero-loop.mp4"
+            poster="assets/img/hero-poster.jpg"
+            muted
+            loop
+            playsinline
+            preload="auto"
+            aria-hidden="true"
+          ></video>
+          <button type="button" class="hero__enter" id="hero-enter">Enter</button>
+          <canvas id="hero-canvas" class="hero__canvas" aria-label="Looping film of David Asher and the bass player. Move your mouse over it to scatter the pixels."></canvas>
+          <p class="hero__hint">Move across the screen</p>
+        </div>
+        <div class="hero__overlay">
+          <h1>David Asher</h1>
+          <p class="hero__role">Composer</p>
+        </div>
+        <button type="button" class="sound-toggle" id="sound-toggle" aria-pressed="false">
+          <span class="sound-toggle__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span class="sound-toggle__label">Sound on</span>
+        </button>
+        <a class="hero__scroll" href="#bio" aria-label="Scroll to bio"><span></span></a>
+      </section>
+
+      <!-- BIO · wallpaper 1 -->
+      <section class="section" id="bio" data-bg="0" data-mood="quiet">
+        <div class="wrap bio-grid">
+          <figure class="portrait" data-reveal>
+            <img src="assets/img/photo-1.jpg" alt="David Asher in a top hat, pouring a drink" width="1000" height="999" loading="lazy" />
+          </figure>
+          <div>
+            <p class="eyebrow" data-reveal>Bio</p>
+            <h2 data-reveal>Scored in real time.</h2>
+            <p class="statement" data-reveal>A composer, producer, and multi-instrumentalist whose music rises from <em>chaos, beauty, and survival.</em></p>
+            <div class="bio-copy" data-reveal>
+              <p>From early days behind the drums and piano to years performing professionally, his life has always been scored in real time. After a devastating accident left him paralyzed, he rebuilt himself through mixing, mastering, and producing, crafting music for others while refining his own cinematic voice. He now writes and produces for a sync-driven production group and continues to mix, master, and produce independent artists throughout the year.</p>
+            </div>
+            <details class="bio-more" data-reveal>
+              <summary><span>Read the full story</span></summary>
+              <div class="bio-copy">
+                <p>David Asher is a multi-instrumentalist, composer, and producer whose journey through life has been anything but ordinary. Marked by chaos, beauty, and moments of darkness, his music is born from the fires of harsh realities and deep personal struggles.</p>
+                <p>Enamored with the piano at a very early age, David discovered early on the harmonious beauty of the white keys, a revelation that set him on a path that would define his life. By 11, David had picked up the guitar, and soon after, the drums, excelling in percussion to the point of becoming a state and county champion. As a sophomore in high school, he performed timpani with The Trenton State Orchestra. David's accolades during these formative years were numerous, from drum captain to chamber orchestra conductor, and lead singer and guitarist in a rock band.</p>
+                <p>After high school, David's musical career flourished as he played with various groups, including the progressive rock band Sandy Gilmour and the renowned NY music collective STILTS. His move from NJ to NYC allowed him to live his dream as a working musician, eventually relocating to the Hamptons where he became a sought-after performer. He played from Montauk to Sunrise Highway, joining the legendary Long Island band Satchel Boogie and performing with some of the most talented musicians in the area.</p>
+                <p>For the next decade, David lived as a professional musician and songwriter until a tragic accident left him paralyzed from the waist down. Refusing to be discouraged, David reinvented himself as a mix engineer and producer, starting his own business. Yet, his passion for composing remained undiminished. Determined to pursue his love for film and TV scoring, David found a mentor in Robbie Teehan, a Canadian composer with a prolific career in media composition.</p>
+                <p>David's music is a testament to his life's experiences, infused with every ounce of joy and every gallon of pain. His masterful use of motifs, intricate layering, and breathtaking builds, combined with his exceptional production skills, make him an invaluable asset for any film score. David Asher transforms cinematic visions into unforgettable auditory experiences.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- MUSIC · wallpaper 2, the loudest background on the site -->
+      <section class="section section--music" id="music" data-bg="1" data-mood="loud">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" data-reveal>Cinematic reel</p>
+              <h2 data-reveal>Listen.</h2>
+            </div>
+            <a class="btn btn--primary" data-reveal href="https://soundcloud.com/david-asher-cinematic" target="_blank" rel="noopener noreferrer">Full reel on SoundCloud ↗</a>
+          </div>
+
+          <div class="music-grid">
+            <div class="player" id="player" data-reveal>
+              <div class="player__now">
+                <div class="player__art">
+                  <img id="player-art" src="assets/img/photo-2.jpg" alt="" />
+                </div>
+                <div class="player__meta">
+                  <p class="player__label">Now playing</p>
+                  <h3 class="player__title" id="player-title">David Asher · Cinematic</h3>
+                  <div class="player__controls">
+                    <button type="button" class="pbtn" id="player-prev" aria-label="Previous track">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z" /></svg>
+                    </button>
+                    <button type="button" class="pbtn pbtn--main" id="player-play" aria-label="Play">
+                      <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15L20 12z" /></svg>
+                      <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z" /></svg>
+                    </button>
+                    <button type="button" class="pbtn" id="player-next" aria-label="Next track">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z" /></svg>
+                    </button>
+                  </div>
+                  <div class="player__time">
+                    <span id="player-pos">0:00</span>
+                    <div class="player__bar" id="player-bar" role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                      <span id="player-fill"></span>
+                    </div>
+                    <span id="player-dur">0:00</span>
+                  </div>
+                </div>
+              </div>
+              <ol class="player__list" id="player-list">
+                <li class="player__loading">Loading tracks from SoundCloud…</li>
+              </ol>
+              <!-- The SoundCloud widget does the playing; the controls above drive it. -->
+              <iframe
+                id="sc-widget"
+                class="player__widget"
+                title="David Asher Cinematic on SoundCloud"
+                allow="autoplay"
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/david-asher-cinematic&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false"
+              ></iframe>
+            </div>
+            <figure class="portrait portrait--tall" data-reveal data-reveal-delay="1">
+              <img src="assets/img/photo-2.jpg" alt="David Asher in sunglasses and a leather jacket" width="900" height="1200" loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- LINKS · wallpaper 3 -->
+      <section class="section" id="links" data-bg="2" data-mood="quiet">
+        <div class="wrap links-layout">
+          <div class="links-intro">
+            <p class="eyebrow" data-reveal>Links</p>
+            <h2 data-reveal>Beyond the score.</h2>
+            <p class="body-copy" data-reveal>Records, bands, studios, and films. Everything else David makes, in one place.</p>
+            <figure class="portrait portrait--small" data-reveal>
+              <img src="assets/img/photo-3.jpg" alt="David Asher in a top hat and round glasses, leaning on a painting" width="900" height="1350" loading="lazy" />
+            </figure>
+          </div>
+          <div class="link-groups">
+            <div class="link-group" data-reveal>
+              <h3>Listen</h3>
+              <a href="https://soundcloud.com/david-asher-cinematic" target="_blank" rel="noopener noreferrer"><b>SoundCloud · Cinematic</b><span>Film and TV music</span></a>
+              <a href="https://soundcloud.com/david-asher" target="_blank" rel="noopener noreferrer"><b>SoundCloud · David Asher</b><span>Songs, mixes, other artists</span></a>
+              <a href="https://davidasher.bandcamp.com/" target="_blank" rel="noopener noreferrer"><b>Bandcamp</b><span>Albums and remasters</span></a>
+            </div>
+            <div class="link-group" data-reveal data-reveal-delay="1">
+              <h3>Projects</h3>
+              <a href="https://music.apple.com/us/artist/asher-aday/1861651782" target="_blank" rel="noopener noreferrer"><b>Asher Aday</b><span>Apple Music</span></a>
+              <a href="https://music.apple.com/us/artist/king-the-bear/1780000420" target="_blank" rel="noopener noreferrer"><b>King &amp; the Bear</b><span>Apple Music</span></a>
+              <a href="https://stilts-band.bandcamp.com/" target="_blank" rel="noopener noreferrer"><b>Stilts</b><span>Bandcamp</span></a>
+              <a href="https://davidasher.bandcamp.com/album/sandy-gilmour" target="_blank" rel="noopener noreferrer"><b>Sandy Gilmour</b><span>Bandcamp</span></a>
+            </div>
+            <div class="link-group" data-reveal>
+              <h3>Sites</h3>
+              <a href="https://davidashermusic.com" target="_blank" rel="noopener noreferrer"><b>David Asher Music</b><span>Mixing, mastering, production</span></a>
+              <a href="https://elephantshoez.com" target="_blank" rel="noopener noreferrer"><b>Elephant Shoez</b><span>AI music video production</span></a>
+              <a href="https://www.youtube.com/@StoryLlneRecords" target="_blank" rel="noopener noreferrer"><b>StoryLlne Records</b><span>YouTube</span></a>
+            </div>
+            <div class="link-group" data-reveal data-reveal-delay="1">
+              <h3>Social</h3>
+              <a href="https://www.instagram.com/elephant_shoez_productions" target="_blank" rel="noopener noreferrer"><b>Instagram</b><span>@elephant_shoez_productions</span></a>
+              <a href="https://www.tiktok.com/@elephantshoezproductions" target="_blank" rel="noopener noreferrer"><b>TikTok</b><span>@elephantshoezproductions</span></a>
+              <a href="https://www.facebook.com/people/Elephant-Shoez-Productions/61595091941577/" target="_blank" rel="noopener noreferrer"><b>Facebook</b><span>Elephant Shoez Productions</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT · wallpaper 4, the host points the way -->
+      <section class="section section--contact" id="contact" data-bg="3" data-mood="quiet">
+        <div class="wrap contact-grid">
+          <div class="host" id="host" aria-hidden="true">
+            <img class="host__pose host__pose--a" src="assets/img/host.png" alt="" width="295" height="1112" />
+            <!-- Drop a pointing pose at assets/img/host-point.png and he will gesture toward the form. -->
+            <img class="host__pose host__pose--b" src="assets/img/host-point.png" alt="" onerror="this.remove()" onload="this.parentNode.classList.add('has-pose')" />
+            <span class="host__cue"></span>
+          </div>
+          <div class="contact-card" data-reveal>
+            <div class="contact-card__head">
+              <img class="headshot" src="assets/img/headshot.jpg" alt="David Asher" width="480" height="480" loading="lazy" />
+              <div>
+                <p class="eyebrow">Contact</p>
+                <h2>Let's score it.</h2>
+              </div>
+            </div>
+            <p class="contact-copy">Film, TV, games, trailers, or sync. Tell me about the project and I'll get back to you.</p>
+            <form class="inquiry" id="inquiry-form" data-email="davidasher1122@gmail.com" novalidate>
+              <div class="form-row form-row--2">
+                <label>Name<input name="name" type="text" autocomplete="name" required /></label>
+                <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+              </div>
+              <label>Project<input name="project" type="text" placeholder="Film, series, game, ad…" /></label>
+              <label>Message<textarea name="message" rows="4" required placeholder="The story, the timeline, any temp music…"></textarea></label>
+              <button class="btn btn--primary" type="submit">Send to David ↗</button>
+              <p class="form-status" role="status"></p>
+            </form>
+            <p class="contact-direct">Or email <a href="mailto:davidasher1122@gmail.com">davidasher1122@gmail.com</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <span>© <span data-year></span> David Asher</span>
+        <span>Composer · Producer · Multi-instrumentalist</span>
+      </div>
+    </footer>
+
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
