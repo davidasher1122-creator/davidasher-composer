@@ -489,6 +489,9 @@
     ["play", "seeked", "loadeddata"].forEach((ev) => heroVideo.addEventListener(ev, syncPan));
     function panFocus() {
       if (!portrait()) return 0.5;
+      // The entry screen holds still on David so the wipe can find Enter.
+      // Enter restarts the video, so the pan then starts from him smoothly.
+      if (root.classList.contains("is-gate") && !root.classList.contains("is-entering")) return PAN_FROM;
       const t = heroVideo.currentTime;
       if (t + 0.5 < prevT) syncPan(); // the loop wrapped
       prevT = t;
