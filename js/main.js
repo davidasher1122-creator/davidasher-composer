@@ -421,6 +421,10 @@
   let heroField = null;
   if (!reduceMotion && heroCanvas instanceof HTMLCanvasElement) {
     const portrait = () => innerHeight > innerWidth;
+    // A tall phone screen only fits a third of the wide frame, so the view
+    // drifts from David (left) to the bass player and back once per loop.
+    const PAN_FROM = 0.12;
+    const PAN_TO = 0.65;
     const revealTarget = () => {
       const box = heroCanvas.getBoundingClientRect();
       const b = enterBtn.getBoundingClientRect();
@@ -438,8 +442,7 @@
       spring: finePointer ? 0.04 : 0.05,
       drag: finePointer ? 0.85 : 0.78,
       ring: finePointer,
-      // On a tall phone screen keep David in frame rather than the dead centre.
-      focusX: portrait() ? 0.22 : 0.5,
+      focusX: portrait() ? PAN_FROM : 0.5,
       // Phones only play with the loop on the entry screen; after that a finger just scrolls.
       interactive: finePointer || showGate,
       stick: showGate,
@@ -461,7 +464,31 @@
         else heroVideo.pause();
       },
     });
-    addEventListener("resize", () => heroField.set("focusX", portrait() ? 0.22 : 0.5));
+    // Driven by the video's own clock so the pan restarts with the loop.
+    // currentTime only ticks per video frame, so glide between ticks.
+    let lastT = -1;
+    let stamp = 0;
+    let lastFocus = -1;
+    (function pan() {
+      requestAnimationFrame(pan);
+      let f = 0.5;
+      if (portrait()) {
+        const now = performance.now();
+        const t = heroVideo.currentTime;
+        if (t !== lastT) {
+          lastT = t;
+          stamp = now;
+        }
+        const dur = heroVideo.duration || 11;
+        const live = heroVideo.paused ? t : t + (now - stamp) / 1000;
+        const p = (live % dur) / dur;
+        f = PAN_FROM + (PAN_TO - PAN_FROM) * (0.5 - 0.5 * Math.cos(2 * Math.PI * p));
+      }
+      if (Math.abs(f - lastFocus) > 0.0002) {
+        lastFocus = f;
+        heroField.set("focusX", f);
+      }
+    })();
 
     if (showGate) {
       hero.querySelector(".hero__hint").textContent = "Wipe the screen to find Enter";
