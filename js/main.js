@@ -465,12 +465,9 @@
       onFirstDraw: () => {
         hero.classList.add("is-reel-ready");
         // The dissolve on arrival: the picture blows apart and settles.
-        // On the gate, wipes only start sticking once it has settled.
-        if (showGate) {
-          heroField.set("stick", false);
-          setTimeout(() => heroField.set("stick", true), 2400);
-        }
-        heroField.scramble(0.75, 15);
+        // Not on the phone entry screen: there it sits still until touched,
+        // and the dissolve comes with Enter.
+        if (!showGate) heroField.scramble(0.75, 15);
       },
       onVisible: (on) => {
         if (on) heroVideo.play().catch(() => {});
