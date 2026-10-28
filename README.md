@@ -53,7 +53,7 @@ Open http://localhost:5175
 
 The host stands beside the contact card with a gentle sway. To make him gesture,
 export a second image of him **in the same position and scale** but pointing right,
-as a transparent PNG the same size as `host.png` (295 × 1112), and save it as
+as a transparent PNG the same size as `host.png` (377 × 1122), and save it as
 `assets/img/host-point.png`. The page picks it up and loops between the two poses.
 No code change needed.
 
