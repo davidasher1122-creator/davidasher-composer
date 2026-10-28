@@ -337,11 +337,11 @@
       if (cfg.onVisible) cfg.onVisible(visible);
     }).observe(canvas);
 
-    let resizeTimer = 0;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resize, 120);
-    });
+    // Watch the canvas itself, not the window: on phones the hero changes
+    // height on Enter without any window resize, which left it stretched.
+    new ResizeObserver(() => {
+      if (canvas.clientWidth !== w || canvas.clientHeight !== h) resize();
+    }).observe(canvas);
     resize();
     requestAnimationFrame(frame);
 
